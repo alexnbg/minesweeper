@@ -2,7 +2,9 @@ from grid import Grid
 
 
 class ShowGrid:
+    """Class for only printing a given Grid object."""
 
+    # how to print the different cells
     closed = '_'
     flagged = 'f'
     empty = ' '
@@ -10,8 +12,12 @@ class ShowGrid:
 
     @classmethod
     def print_board(cls, grid: Grid, show_mines: bool = False):
+        """Prints a grid of cells in columns and rows\n
+        with the current state for every cell (closed/opened/flagged)\n
+        for a given Grid object.
+        If show_mines is True the game has ended and it prints where all mines are."""
 
-        # grid string to be printed
+        # get a string with the current state of all cells to be printed
         gr_str = cls._get_print_string(grid, show_mines)
 
         # spacing - columns width and between columns
@@ -24,9 +30,7 @@ class ShowGrid:
         elif grid.columns > 52:
             header_column = 3
 
-        #
-        # Print board
-        #
+        # Print the grid of cells
 
         print()
         # print header for columns (A, B, C, ...)
@@ -34,8 +38,7 @@ class ShowGrid:
             ' '*header_rows,
             ' '.join(
                 [f'{chr(65+column)}'.center(header_column)
-                 for column in range(grid.columns)]
-            )
+                 for column in range(grid.columns)])
         )
         # print rows and cells (row number + cells...)
         for row in range(grid.rows):
@@ -51,7 +54,11 @@ class ShowGrid:
 
     @classmethod
     def _get_print_string(cls, grid: Grid, show_mines: bool = False) -> str:
+        """Return a string of the state of every cell (closed/opened/flagged)\n
+        If show_mines is True returns the same string with revealed mines positions."""
+
         out_list = []
+
         for ind, cell in enumerate(grid.opened_string):
             if cell == 'F':
                 if show_mines and grid.main_str[ind] == 'T':
