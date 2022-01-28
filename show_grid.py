@@ -2,7 +2,7 @@ from grid import Grid
 
 
 class ShowGrid:
-    """Class for only printing a given Grid object."""
+    """Class for only printing a Grid object."""
 
     # how to print the different cells
     closed = '_'
@@ -10,15 +10,15 @@ class ShowGrid:
     empty = ' '
     mine = '*'
 
-    @classmethod
-    def print_board(cls, grid: Grid, show_mines: bool = False):
-        """Prints a grid of cells in columns and rows\n
-        with the current state for every cell (closed/opened/flagged)\n
-        for a given Grid object.
+    @staticmethod
+    def print_board(grid: Grid, show_mines: bool = False):
+        """Prints a grid of cells in columns and rows
+        with the current state for every cell (closed/opened/flagged)
+        for a given Grid object.\n
         If show_mines is True the game has ended and it prints where all mines are."""
 
         # get a string with the current state of all cells to be printed
-        gr_str = cls._get_print_string(grid, show_mines)
+        gr_str = ShowGrid._get_print_string(grid, show_mines)
 
         # spacing - columns width and between columns
         header_rows = 3
@@ -52,9 +52,9 @@ class ShowGrid:
             )
         print()
 
-    @classmethod
-    def _get_print_string(cls, grid: Grid, show_mines: bool = False) -> str:
-        """Return a string of the state of every cell (closed/opened/flagged)\n
+    @staticmethod
+    def _get_print_string(grid: Grid, show_mines: bool = False) -> str:
+        """Return a string of the state of every cell (closed/opened/flagged).
         If show_mines is True returns the same string with revealed mines positions."""
 
         out_list = []
@@ -62,17 +62,17 @@ class ShowGrid:
         for ind, cell in enumerate(grid.opened_string):
             if cell == 'F':
                 if show_mines and grid.main_str[ind] == 'T':
-                    out_list.append(cls.mine)
+                    out_list.append(ShowGrid.mine)
                 elif grid.flagged_string[ind] == 'T':
-                    out_list.append(cls.flagged)
+                    out_list.append(ShowGrid.flagged)
                 else:
-                    out_list.append(cls.closed)
+                    out_list.append(ShowGrid.closed)
             else:
                 num_str = grid.calculated_str[ind]
                 if int(num_str) == 0:
-                    out_list.append(cls.empty)
+                    out_list.append(ShowGrid.empty)
                 elif int(num_str) == 9:
-                    out_list.append(cls.mine)
+                    out_list.append(ShowGrid.mine)
                 else:
                     out_list.append(num_str)
 
