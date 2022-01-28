@@ -9,6 +9,6 @@ class SingleCell:
     row: int
 
     def long_index(self, columns) -> int:
-        """Returns the long index of a given cell with location\n
+        """Returns the index (for a sequence of True/False) of a given cell with location
         for a grid of a given number of columns."""
         return self.row*columns + self.column
